@@ -31,7 +31,7 @@ class MainProject extends Component {
 
 
 
-    fetch(' ftp.web2149.uni5.net', {
+    fetch('mysql54-farm2.uni5.net', {
       method: 'POST',
       Header() {
         header.Add("Access-Control-Allow-Origin", "*")
