@@ -5,12 +5,12 @@ import Card from "./components/cards/card";
 
 function App() {
   const [values, setValues] = useState({});
-  const [ListUsuario, setListUsuario] = useState();
+  const [listUsuario, setListUsuario] = useState([]);
 
-  const handleChangeValues = (value) => {
+  const handleChangeValues = (event) => {
     setValues((prevValue) => ({
       ...prevValue,
-      [value.target.name]: value.target.value,
+      [event.target.name]: event.target.value,
     }));
   };
 
@@ -19,16 +19,29 @@ function App() {
       idEmail: values.email,
       nome: values.name,
       senha: values.senha,
-    }).then((response) => {
-      console.log(response);
-    });
+    })
+      .then(() => {
+        setListUsuario([
+          ...listUsuario,
+          {
+            idEmail: values.email,
+            nome: values.name,
+            senha: values.senha,
+          }
+        ])
+      });
   };
 
   useEffect(() => {
-    Axios.get("http://localhost:3306/getCards").then((response) => {
-      setListUsuario(response.data)
-    })
-  }, [])
+    Axios.get("http://localhost:3306/getCards")
+      .then((response) => {
+        setListUsuario(response.data);
+      })
+      .catch((error) => {
+        console.error(error);
+      });
+      
+  }, []);
 
   return (
     <div className="app-container">
@@ -57,17 +70,17 @@ function App() {
         />
         <button onClick={handleClickButton}>Cadastrar</button>
       </div>
-      {typeof ListUsuario !== "undefined" && ListUsuario.map((value) => {
-        return <Card key={value.id} 
-        ListCard={ListUsuario} 
-        setListCard={setListUsuario}
-        id={value.id}
-        idEmail={value.idEmail}
-        nome={value.nome}
-        senha={value.senha}
-        ></Card>
-      })}
-
+      {console.log(listUsuario)}
+      {listUsuario.map((value) => (
+        <Card
+          key={value.idEmail}
+          idEmail={value.idEmail}
+          nome={value.nome}
+          senha={value.senha}
+          listUsuario={listUsuario}
+          setListUsuario={setListUsuario}
+        />
+      ))}
     </div>
   );
 }
