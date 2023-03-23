@@ -6,6 +6,10 @@
 /.pnp
 .pnp.js
 
+*/**/cache/**
+**/cache/**
+**/cache/*
+cache/*
 # testing
 /coverage
 
