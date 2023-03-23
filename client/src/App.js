@@ -1,9 +1,8 @@
 import React, { useState, useEffect } from "react";
-import "./App.css";
 import Axios from "axios";
 import Card from "./components/cards/card";
 
-function App() {
+function Test() {
   const [values, setValues] = useState({});
   const [listUsuario, setListUsuario] = useState([]);
 
@@ -85,4 +84,4 @@ function App() {
   );
 }
 
-export default App;
+export default Test;
